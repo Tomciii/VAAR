@@ -1,0 +1,183 @@
+<html>
+<head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+
+</head>
+<body>
+<a-scene keyboard-shortcuts background="color: #87CEEB;">
+    <a-camera id="camera" position="0 1.6 4" look-controls="mouseEnabled: false" custom-movement>
+        <a-cursor></a-cursor>
+    </a-camera>
+
+    <a-entity id="car" car position="0 0 -3"></a-entity>
+
+    <a-entity cloud position="0 7 -5"></a-entity>
+    <a-entity cloud position="4 7 -5"></a-entity>
+    <a-entity cloud position="1 7 -5"></a-entity>
+    <a-entity cloud position="-9 7 -5"></a-entity>
+    <a-entity cloud position="-12 7 -5"></a-entity>
+    <a-entity cloud position="-12 7 -2"></a-entity>
+    <a-entity cloud position="-5 7 -1"></a-entity>
+    <a-entity cloud position="-5 7 -1"></a-entity>
+
+    <a-entity tree position="3 0 0"></a-entity>
+    <a-entity tree position="3 0 6"></a-entity>
+    <a-entity tree position="3 0 12"></a-entity>
+    <a-entity tree position="3 0 20"></a-entity>
+    <a-entity tree position="12 0 20"></a-entity>
+    <a-entity tree position="12 0 0"></a-entity>
+    <a-entity tree position="-17 0 0"></a-entity>
+    <a-entity tree position="-12 0 0"></a-entity>
+    <a-entity tree position="-28 0 0"></a-entity>
+
+    <a-plane rotation="-90 0 0" width="10000" height="10000" color="#7BC8A4"></a-plane>
+    <a-plane rotation="-90 0 0" width="2" height="10000" color="#FFFFFF"></a-plane>
+
+
+
+    <a-sky color="#549ee3"></a-sky>
+
+</a-scene>
+
+<a-entity id="car" car position="0 0 -3"></a-entity>
+
+<a-entity cloud position="0 2 -5"></a-entity>
+
+<a-entity
+        id="tree"
+        geometry="primitive: box; width: 1; height: 3; depth: 1"
+        material="color: #6b5d4a"
+        position="3 1.5 0"
+>
+    <a-box position="0 2 0" width="3" height="1" depth="3" color="#228B22"></a-box>
+</a-entity>
+<script>
+    AFRAME.registerComponent('cloud', {
+        init: function () {
+            // Create the cloud entity
+            var cloudEntity = document.createElement('a-sphere');
+            cloudEntity.setAttribute('position', this.data.position);
+            cloudEntity.setAttribute('radius', 1);
+            cloudEntity.setAttribute('color', '#FFFFFF');
+            cloudEntity.setAttribute('opacity', 0.8);
+
+            // Append the cloud entity to the scene
+            this.el.appendChild(cloudEntity);
+        }
+    });
+
+    AFRAME.registerComponent('car', {
+        init: function () {
+            // Create the car entity
+            var carEntity = document.createElement('a-box');
+            carEntity.setAttribute('position', this.data.position);
+            carEntity.setAttribute('width', 2);
+            carEntity.setAttribute('height', 1);
+            carEntity.setAttribute('depth', 4);
+            carEntity.setAttribute('rotation', '0 0 0');
+            carEntity.setAttribute('color', '#ab9272');
+
+            var carEntity2 = document.createElement('a-box');
+            carEntity2.setAttribute('position', '0 0.5 0');
+            carEntity2.setAttribute('width', 2);
+            carEntity2.setAttribute('height', 0.2);
+            carEntity2.setAttribute('depth', 4);
+            carEntity2.setAttribute('rotation', '0 0 0');
+            carEntity2.setAttribute('color', '#cc9797');
+
+            var carEntity3 = document.createElement('a-box');
+            carEntity3.setAttribute('position', '0 0.7 0');
+            carEntity3.setAttribute('width', 2);
+            carEntity3.setAttribute('height', 0.2);
+            carEntity3.setAttribute('depth', 4);
+            carEntity3.setAttribute('rotation', '0 0 0');
+            carEntity3.setAttribute('color', '#ab9272');
+
+            // Create the individual box components for the car
+            var box1 = document.createElement('a-box');
+            box1.setAttribute('position', '-1.2 -0.25 1.25');
+            box1.setAttribute('width', 0.5);
+            box1.setAttribute('height', 0.75);
+            box1.setAttribute('depth', 1);
+            box1.setAttribute('color', '#333');
+            box1.setAttribute('rotation', '0 0 0');
+
+            var box2 = document.createElement('a-box');
+            box2.setAttribute('position', '1.2 -0.25 1.25');
+            box2.setAttribute('width', 0.5);
+            box2.setAttribute('height', 0.75);
+            box2.setAttribute('depth', 1);
+            box2.setAttribute('color', '#333');
+            box2.setAttribute('rotation', '0 0 0');
+
+            var box3 = document.createElement('a-box');
+            box3.setAttribute('position', '-1.2 -0.25 -0.75');
+            box3.setAttribute('width', 0.5);
+            box3.setAttribute('height', 0.75);
+            box3.setAttribute('depth', 1);
+            box3.setAttribute('color', '#333');
+            box3.setAttribute('rotation', '0 0 0');
+
+            var box4 = document.createElement('a-box');
+            box4.setAttribute('position', '1.2 -0.25 -0.75');
+            box4.setAttribute('width', 0.5);
+            box4.setAttribute('height', 0.75);
+            box4.setAttribute('depth', 1);
+            box4.setAttribute('color', '#333');
+            box4.setAttribute('rotation', '0 0 0');
+
+            // Append the individual boxes to the car entity
+            carEntity.appendChild(box1);
+            carEntity.appendChild(box2);
+            carEntity.appendChild(box3);
+            carEntity.appendChild(box4);
+            carEntity.appendChild(carEntity2);
+            carEntity.appendChild(carEntity3);
+
+            // Append the car entity to the scene
+            this.el.appendChild(carEntity);
+        }
+    });
+
+    AFRAME.registerComponent('tree', {
+        init: function () {
+            // Clone the tree entity
+            var clonedTree = document.querySelector('#tree').cloneNode(true);
+
+            // Set the position of the cloned tree entity
+            clonedTree.setAttribute('position', this.data.position);
+
+            // Append the cloned tree entity to the scene
+            this.el.appendChild(clonedTree);
+        }
+    });
+
+    document.getElementById("camera").setAttribute("rotation", "-45 0 0");
+    var keys = {};
+
+    document.addEventListener("keydown", function (event) {
+        keys[event.key] = true;
+    });
+
+    document.addEventListener("keyup", function (event) {
+        keys[event.key] = false;
+    });
+
+    function moveBox() {
+        var box = document.getElementById("car");
+        var position = box.getAttribute("position");
+        var step = 0.2; // adjust the step size as needed
+
+        if (keys["w"]) position.z -= step;
+        if (keys["s"]) position.z += step;
+        if (keys["a"]) position.x -= step;
+        if (keys["d"]) position.x += step;
+
+        box.setAttribute("position", position);
+        requestAnimationFrame(moveBox);
+    }
+
+    moveBox();
+</script>
+</body>
+</html>
